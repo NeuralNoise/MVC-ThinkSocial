@@ -109,7 +109,8 @@ class PageController
         list($albums, $commentPhotosNum) = $this->getAlbumsInfo();
         $commentNewsNum = $this->getNewsCommentsInfo();
         $friendReqs = $this->getFriendRequestsInfo();
-        $unreadMessagesNum = Message::count(['receiverId' => $this->userId, 'status' => 'unread']);
+//        $unreadMessagesNum = Message::count(['receiverId' => $this->userId, 'status' => 'unread']);
+        $unreadMessagesNum = 10;
 
         $result = compact('templateNames', 'title', 'unreadMessagesNum', 'commentPhotosNum',
             'commentNewsNum', 'commentAvatarNum', 'user', 'cities', 'groups',
