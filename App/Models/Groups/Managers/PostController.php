@@ -29,12 +29,16 @@ class PostController implements GroupPageMethodController
 
     private function checkAction()
     {
-        switch ($_SERVER['HTTP_X_PAGE_ACTION']) {
-            case "avatar_upload":
-                $this->updateAvatar();
-                break;
-            default:
-                $this->butler['Messenger']->send400Response();
+        if (empty($_SERVER['HTTP_X_PAGE_ACTION'])) {
+            $this->butler['Messenger']->send400Response();
+        } else {
+            switch ($_SERVER['HTTP_X_PAGE_ACTION']) {
+                case "avatar_upload":
+                    $this->updateAvatar();
+                    break;
+                default:
+                    $this->butler['Messenger']->send400Response();
+            }
         }
     }
 
@@ -47,6 +51,7 @@ class PostController implements GroupPageMethodController
         } else {
             $result = $this->butler['GroupManager']->saveAvatar();
             if (!$result) {
+                $this->butler['Messenger']->setHeader('X-COMMENT-RESPONSE: Server Error');
                 $this->butler['Messenger']->send503Response();
             } else {
                 $this->butler['Messenger']->setHeader("Location: $result");

@@ -26,6 +26,12 @@ class Butler implements \ArrayAccess
 
     public function __construct(array $input = [])
     {
+        $this->init($input);
+    }
+
+
+    private function init($input)
+    {
         $this->container['CurrentUser'] = User::checkLogged();
         $this->container['Messenger'] = new Messenger();
         $this->container['InputFilter'] = new InputFilter();
@@ -37,7 +43,8 @@ class Butler implements \ArrayAccess
         $this->container['PageController'] = new PageController();
         $this->container['CurrentGroup'] = null;
         $this->container['UserGroup'] = null;
-        $this->container['GroupAvatars'] = null;
+        $this->container['GroupAvatar'] = null;
+        $this->container['GroupHasAvatar'] = null;
         $id = $this->container['InputFilter']->idPrepare($input);
         if (!empty($id)) {
             $this->container['GroupKey'] = $id;
@@ -45,7 +52,6 @@ class Butler implements \ArrayAccess
             $this->container['GroupKey'] = 0;
         }
     }
-
 
     /**
      * @param mixed $offset
