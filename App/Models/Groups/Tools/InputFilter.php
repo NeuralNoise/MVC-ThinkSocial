@@ -19,6 +19,15 @@ class InputFilter
         return strip_tags(trim($string));
     }
 
+    public function checkStrLen($str, $len)
+    {
+        if ($len < strlen($str)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 
     public function getReason()
     {
@@ -75,20 +84,20 @@ class InputFilter
     private function fileErrorCheck()
     {
         if (!isset($this->file['error']) or is_array($this->file['error'])) {
-            $this->reason = "Invalid Parameters";
+            $this->reason = 'Invalid Parameters';
             return false;
         } else {
             if ($this->file['error'] != UPLOAD_ERR_OK) {
                 switch ($this->file['error']) {
                     case UPLOAD_ERR_NO_FILE:
-                        $this->reason = "No file sent";
+                        $this->reason = 'No file sent';
                         return false;
                     case UPLOAD_ERR_INI_SIZE:
                     case UPLOAD_ERR_FORM_SIZE:
-                        $this->reason = "Exceeded file size limit.";
+                        $this->reason = 'Exceeded file size limit.';
                         return false;
                     default:
-                        $this->reason = "Unknown Error";
+                        $this->reason = 'Unknown Error';
                         return false;
                 }
             } else {
@@ -100,6 +109,7 @@ class InputFilter
     private function fileSizeCheck()
     {
         if ($this->file['size'] > self::ALLOWED_FILE_SIZE) {
+            $this->reason = 'Inappropriate file size';
             return false;
         } else {
             return true;
@@ -111,7 +121,7 @@ class InputFilter
         $fileInfo = new \finfo(FILEINFO_MIME_TYPE);
         $this->ext = array_search($fileInfo->file($this->file['tmp_name']), self::MIME_IMAGE_FORMATS, true);
         if (!$this->ext) {
-            $this->reason = "Invalid file format";
+            $this->reason = 'Invalid file format';
             return false;
         } else {
             return true;

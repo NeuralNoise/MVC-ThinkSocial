@@ -48,6 +48,8 @@ return [
     //Managing the user groups
     'groups/page' => 'group/GroupPage',
     'groups/add' => 'group/MyGroupCreateJSON',
+    'groups/mysearch' => 'group/MyGroupsJSON',
+    'groups/search' => 'group/FindGroupsJSON',
     'groups/subscribe' => 'group/Subscribe',
     'groups/unsubscribe' => 'group/UnSubscribe',
     'groups/find' => 'group/find',

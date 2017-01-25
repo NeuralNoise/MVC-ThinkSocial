@@ -6,9 +6,10 @@
                     <a href="#" id="create-group-btn" class="w3-btn w3-white w3-border w3-border-blue w3-round make-group small"> Create Group </a>
                 </div>
                 <div class="search-wrapper">
-                    <input title="Поиск групп" type="search" class="group-search" placeholder="Search in your groups">
+                    <input title="Поиск групп" type="search" class="my-group-search" placeholder="Search in your groups">
                 </div>
             </div>
+            <div id="my-search-wrapper">
             <?php foreach ($myGroups as $myGroup) : ?>
                 <section class="group-card mine">
                 <img src="<?= "/avatars/" . $myGroup->groupsAvatars[0]->fileName;?>" class="group-card__avatar" width="100px" height="100px">
@@ -30,6 +31,7 @@
                 <a href="/groups/unsubscribe/id<?= $Group->group->id?>" class="group-card__subs w3-btn w3-ripple w3-red"> Unsubscribe </a>
             </section>
             <?php endforeach; ?>
+        </div>
         </div>
 <!--    </div>-->
 <!--     End Page Container -->
