@@ -22,7 +22,7 @@ class GroupController extends PageController
     {
         $response = parent::actionIndex();
         $response['templateNames'] = [
-            'head', 'navbar', 'leftcolumn', 'groups/mi_groups', 'rightcolumn', 'footer',
+            'head', 'navbar', 'leftcolumn', 'groups/mi_groups', 'groups/rightcolumn', 'footer'
         ];
         $response['title'] = 'Группы';
         UserGroup::clearJoins();
@@ -46,7 +46,7 @@ class GroupController extends PageController
     {
         $response = parent::actionIndex();
         $response['templateNames'] = [
-            'head', 'navbar', 'leftcolumn', 'groups/find', 'rightcolumn', 'footer',
+            'head', 'navbar', 'leftcolumn', 'groups/find', 'groups/rightcolumn', 'footer'
         ];
         $response['title'] = 'Группы';
         UserGroup::clearJoins();
@@ -138,7 +138,7 @@ class GroupController extends PageController
     public function actionMyGroupsJSON()
     {
         $butler = new Butler();
-        if (!$_SERVER['REQUEST_METHOD'] !== "POST") {
+        if ($_SERVER['REQUEST_METHOD'] !== "POST") {
             $butler['Messenger']->setHeader('Allow: POST');
             $butler['Messenger']->send405Response();
         } else {
@@ -159,7 +159,7 @@ class GroupController extends PageController
     public function actionFindGroupsJSON()
     {
         $butler = new Butler();
-        if (!$_SERVER['REQUEST_METHOD'] !== "POST") {
+        if ($_SERVER['REQUEST_METHOD'] !== "POST") {
             $butler['Messenger']->setHeader('Allow: POST');
             $butler['Messenger']->send405Response();
         } else {

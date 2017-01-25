@@ -74,7 +74,7 @@
     float: right;
 }
 
-.group-search {
+.my-group-search, .group-search {
     outline: none;
     width: 100%;
     border: none;
@@ -84,7 +84,7 @@
     background: url(https://vk.com/images/search_icon.png) no-repeat 0 center;
 }
 
-.group-search:before{
+.my-group-search:before, .my-group-search:before{
     content: '';
     position: absolute;
 }
@@ -371,7 +371,7 @@
     min-height: 190px;
 }
 
-.avatar-drop-box .avatar-upload-file {
+.avatar-upload-file {
     display: none;
 }
 
@@ -493,6 +493,11 @@
     color: red;
     margin-top: -10px;
     margin-bottom: 10px;
+}
+
+.group-avatar-page-image {
+    width:100%;
+    height: 140px;
 }
 
 @media only screen and (max-width: 1030px) {

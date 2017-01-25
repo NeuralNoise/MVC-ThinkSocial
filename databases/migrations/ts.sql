@@ -21,20 +21,6 @@ CREATE DATABASE ts
 USE ts;
 
 --
--- Temporary view structure for view `admin_list`
---
-
-
-DROP TABLE IF EXISTS `admin_list`;
-/*!50001 DROP VIEW IF EXISTS `admin_list`*/;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
-/*!50001 CREATE VIEW `admin_list` AS SELECT 
- 1 AS `first_name`,
- 1 AS `name`*/;
-SET character_set_client = @saved_cs_client;
-
---
 -- Table structure for table `albums`
 --
 
@@ -994,8 +980,8 @@ insert into friends (user_sender, user_receiver) values (4,5);
 insert into groups (name, description) values ('Наш сад', 'Группа для любителей садоводства'),
 					('Готовим вкусно', 'Кулинарная группа'),
                                         ('Вышиваем вместе', 'Группа для истинных любителей художественной вышивки');
-insert into users_groups (group_id, user_id) values
-			 (1, 5), (2,5), (3, 5);
+insert into users_groups (group_id, user_id, role_id) values
+			 (1, 5, 4), (2, 5, 4), (3, 5, 4);
 insert into groups_avatars (file_name, group_id)
 values ('garden.jpeg', 1), ('food.jpg', 2), ('stitch.gif', 3);
 

@@ -56,6 +56,7 @@ class Messenger
 
     public function send503Response()
     {
+        $this->prepareHeaders();
         header("HTTP/1.1 503 Service Unavailable");
         header("Rerty-After: 15 minutes");
         exit;
@@ -67,14 +68,10 @@ class Messenger
      */
     public function sendNewJSONResponse(array $response)
     {
-        if (!empty($response)) {
-            $this->prepareHeaders();
-            header("Content-Type: application/json");
-            echo json_encode($response);
-            exit;
-        } else {
-            throw new \Exception("Empty Response given");
-        }
+        $this->prepareHeaders();
+        header("Content-Type: application/json");
+        echo json_encode($response);
+        exit;
     }
 
     /**

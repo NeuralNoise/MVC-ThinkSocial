@@ -23,13 +23,14 @@
                     <button onclick="myFunction('Demo1')" class="w3-btn-block w3-theme-l1 w3-left-align"><i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i> My Groups</button>
                     <div id="Demo1" class="w3-accordion-content w3-container">
                         <table>
-                            <?php foreach ($groups as $group): ?>
+                            <?php for ($i = 0; $i < ( 3 > count($groups) ? count($groups) : 3 ); $i++) : ?>
                                 <tr>
-                                    <td><img src="/avatars/<?=$group->avatarFileName?>" class="w3-circle" style="height:50px;width:50px"></td>
-                                    <td><?=$group->name?></td>
+                                    <td><img src="/avatars/<?=$groups[$i]->avatarFileName?>" class="w3-circle" style="height:50px;width:50px"></td>
+                                    <td><a href="/groups/page/id<?=$groups[$i]->id?>"><?=$groups[$i]->name?></a></td>
                                 </tr>
-                            <?php endforeach; ?>
+                            <?php endfor; ?>
                         </table>
+                            <p><a href="/groups/" style="color:#585f9b;"> Watch more ... </a></p>
                     </div>
                     <button onclick="myFunction('Demo2')" class="w3-btn-block w3-theme-l1 w3-left-align"><i class="fa fa-calendar-check-o fa-fw w3-margin-right"></i> My Events</button>
                     <div id="Demo2" class="w3-accordion-content w3-container">

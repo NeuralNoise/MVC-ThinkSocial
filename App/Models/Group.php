@@ -12,6 +12,8 @@ use App\Components\ActiveRecord;
 
 class Group extends ActiveRecord
 {
+    const GROUP_NAME_LENGTH = 20;
+    const GROUP_DESC_LENGTH = 255;
     public $name;
     public $description;
     public $status;

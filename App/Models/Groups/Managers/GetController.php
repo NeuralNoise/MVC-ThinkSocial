@@ -41,6 +41,8 @@ class GetController implements GroupPageMethodController
             'groups/management/groupPageInfo'];
         $response['title'] = $this->butler['CurrentGroup']->name;
         $response['currentGroup'] = $this->butler['CurrentGroup'];
+        $response['groupAvatar'] = $this->butler['CurrentAvatar']->fileName;
+        $response['hasAvatar'] = $this->butler['GroupHasAvatar'];
         return $response;
     }
 
@@ -53,9 +55,13 @@ class GetController implements GroupPageMethodController
         $response = $this->butler['PageController']->actionIndex();
         $response['templateNames'] = ['head',
             'navbar',
-            'leftcolumn'
+            'leftcolumn',
+            'groups/visitors/groupPageContent',
+            'groups/visitors/groupPageInfo'
         ];
         $response['title'] = $this->butler['CurrentGroup']->name;
+        $response['currentGroup'] = $this->butler['CurrentGroup'];
+        $response['groupAvatar'] = $this->butler['CurrentAvatar']->fileName;
         return $response;
     }
 
@@ -68,9 +74,13 @@ class GetController implements GroupPageMethodController
         $response = $this->butler['PageController']->actionIndex();
         $response['templateNames'] = ['head',
             'navbar',
-            'leftcolumn'
+            'leftcolumn',
+            'groups/guests/groupPageContent',
+            'groups/guests/groupPageInfo'
         ];
         $response['title'] = $this->butler['CurrentGroup']->name;
+        $response['currentGroup'] = $this->butler['CurrentGroup'];
+        $response['groupAvatar'] = $this->butler['CurrentAvatar']->fileName;
         return $response;
     }
 
