@@ -50,7 +50,13 @@ class PageController
     private function getGroupsInfo()
     {
         Group::joinDB('groups.id', 'users_groups', 'group_id', [], false, ' AND users_groups.user_id=:userId');
-        return Group::getByCondition(['userId' => $this->userId]);
+        Group::joinDB('groups.id', 'groups_avatars', 'group_id', ['id' => 'groupAvatarId', 'file_name' => 'avatarFileName'],
+            true, " AND groups_avatars.status='active'");
+        $groups = Group::getByCondition(['userId' => $this->userId]);
+        foreach ($groups as $group) {
+            $group->avatarFileName = $group->avatarFileName ?? 'group-no-avatar.png';
+        }
+        return $groups;
     }
 
 
