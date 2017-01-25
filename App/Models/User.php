@@ -2,6 +2,9 @@
 namespace App\Models;
 
 use App\Components\ActiveRecord;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\Storage;
+use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
 
 /**
  * Created by PhpStorm.
@@ -64,13 +67,29 @@ class User extends ActiveRecord
 
     }
 
+    /**
+     *  creates session object on memcached server
+     * @return Session
+     */
+    public static function initSession()
+    {
+        $memcached = new \Memcached();
+
+        $memcached->addServer('think-social-mvc.local', 11211);
+
+        $storage = new NativeSessionStorage([], new Storage\Handler\MemcachedSessionHandler($memcached));
+        return new Session($storage);
+    }
+
         /**
          * Remember user
          * @param integer $userId <p>id users</p>
          */
         public static function auth($userId)
     {
-        $_SESSION['user'] = $userId;
+        $session = User::initSession();
+        $session->start();
+        $session->set('user', $userId);
     }
 
         /**
@@ -80,10 +99,12 @@ class User extends ActiveRecord
          */
         public static function checkLogged()
     {
-        if (isset($_SESSION['user'])) {
-            return $_SESSION['user'];
-        }
+        $session = User::initSession();
+        $session->start();
 
+        if ($session->get('user')) {
+            return $session->get('user');
+        }
         header('Location: /user/login');
         exit;
     }
@@ -94,7 +115,11 @@ class User extends ActiveRecord
          */
         public static function isGuest()
     {
-        if (isset($_SESSION['user'])) {
+
+        $session = User::initSession();
+        $session->start();
+
+        if ($session->get('user')) {
             return false;
         }
         return true;

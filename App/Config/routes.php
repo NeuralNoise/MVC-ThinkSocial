@@ -1,5 +1,7 @@
 <?php
 return [
+     // Dialogs
+    'dialogs' => 'dialog/show',
      // User:
     'user/register' => 'user/register',
     'user/login' => 'user/login',
