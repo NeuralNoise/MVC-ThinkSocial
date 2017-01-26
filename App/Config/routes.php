@@ -56,6 +56,15 @@ return [
     'groups' => 'group/index',
     'group/subsribe/([0-9]+)' => 'group/subsribe/$1',
     'group/unsubsribe/([0-9]+)' => 'group/unsubsribe/$1',
+
+    //News and comments
+    'news/delete-news' => 'news/delete/$1',
+    'news/add-news' => 'news/add/$1',
+    'news/get-news' => 'news/get/$1',
+    'comments/delete-comments' => 'comments/delete/$1',
+    'comments/add-comments' => 'comments/add/$1',
+    'comments/get-comments' => 'comments/get/$1',
+    'news' => 'news/index',
 //
 //
 //

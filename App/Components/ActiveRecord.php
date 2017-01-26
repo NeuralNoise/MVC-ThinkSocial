@@ -176,7 +176,12 @@ abstract class ActiveRecord
             return;
         }
         if ($action == 'count') {
-            return ($query->fetchAll(\PDO::FETCH_ASSOC))[0]['count'];
+            $result =  $query->fetchAll(\PDO::FETCH_ASSOC);
+            if (!empty($result)) {
+               return $result[0]['count'];
+            } else {
+                return 0;
+            }
         }
         return $result = $query->fetchAll(\PDO::FETCH_CLASS, $className);
     }
