@@ -1,5 +1,5 @@
 <?php
-//include ROOT . '/views/layouts/header.php';
+include ROOT . '/resources/views/layouts/auth/header.php';
 ?>
     <section>
         <div class="container">
@@ -11,7 +11,7 @@
 
                 <br/>
 
-                <p>You available such opportunities:</p>
+                <p>Such opportunities are available for you:</p>
 
                 <br/>
 
@@ -23,5 +23,5 @@
         </div>
     </section>
 <?php
-//include ROOT . '/views/layouts/footer.php';
+include ROOT . '/resources/views/layouts/auth/footer.php';
 ?>
