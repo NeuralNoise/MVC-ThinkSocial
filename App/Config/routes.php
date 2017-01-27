@@ -2,6 +2,11 @@
 return [
      // Dialogs
     'dialogs' => 'dialog/show',
+     // ajax dialog routes
+    'dialog/create' => 'dialog/createDialog',
+    'dialog/clearunread' => 'dialog/clearUnreadCounter',
+    'dialog/addunread' => 'dialog/addUnreadCounter',
+    'dialog/user' => 'dialog/user',
      // User:
     'user/register' => 'user/register',
     'user/login' => 'user/login',

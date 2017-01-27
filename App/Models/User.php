@@ -100,7 +100,7 @@ class User extends ActiveRecord
         public static function checkLogged()
     {
         $session = User::initSession();
-        $session->start();
+      //  $session->start();
 
         if ($session->get('user')) {
             return $session->get('user');
@@ -117,7 +117,7 @@ class User extends ActiveRecord
     {
 
         $session = User::initSession();
-        $session->start();
+       // $session->start();
 
         if ($session->get('user')) {
             return false;
