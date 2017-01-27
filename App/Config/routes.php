@@ -5,7 +5,14 @@ return [
     'user/register' => 'user/register',
     'user/login' => 'user/login',
     'user/logout' => 'user/logout',
-
+    
+    /*****DIALOGS******/
+    'dialogs' => 'dialog/show',
+     // ajax dialog routes
+    'dialog/create' => 'dialog/createDialog',
+    'dialog/clearunread' => 'dialog/clearUnreadCounter',
+    'dialog/addunread' => 'dialog/addUnreadCounter',
+    'dialog/user' => 'dialog/user',
     // Management users: (future)
     'admin/user/create' => 'adminUser/create',
     'admin/user/update/([0-9]+)' => 'adminUser/update/$1',

@@ -6,7 +6,10 @@
             "email": "brichak.new@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+        "symfony/http-foundation": "^3.2",
+        "cboden/ratchet": "^0.3.6"
+    },
 
 
     "autoload": {

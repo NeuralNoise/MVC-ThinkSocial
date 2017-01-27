@@ -3,6 +3,9 @@ namespace App\Controllers;
 
 use App\Components\ActiveRecord;
 use App\Models\{User, UserAvatarComment, Group, Friend, Message, City, Album, AlbumPhotoComment, NewsComment};
+use App\DataMapperModels\DialogMapper;
+use App\DataMapperModels\RecipientMapper;
+use Composer\Command\DiagnoseCommand;
 
 /**
  * PageController Class
@@ -115,7 +118,15 @@ class PageController
         list($albums, $commentPhotosNum) = $this->getAlbumsInfo();
         $commentNewsNum = $this->getNewsCommentsInfo();
         $friendReqs = $this->getFriendRequestsInfo();
-        $unreadMessagesNum = Message::count(['receiverId' => $this->userId, 'status' => 'unread']);
+
+        $unreadMessagesNum = 0;
+        $recipientMapper = new RecipientMapper();
+        $dialogRecipients = $recipientMapper->findAll(['user_id' => $this->userId]);
+        if (isset($dialogRecipients)) {
+            foreach ($dialogRecipients as $dialogRecipient) {
+                $unreadMessagesNum += $dialogRecipient->unreadCounter;
+            }
+        }
 
         $result = compact('templateNames', 'title', 'unreadMessagesNum', 'commentPhotosNum',
             'commentNewsNum', 'commentAvatarNum', 'user', 'cities', 'groups',
