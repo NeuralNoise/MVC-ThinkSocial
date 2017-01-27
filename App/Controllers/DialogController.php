@@ -179,6 +179,7 @@ class DialogController extends PageController implements MessageComponentInterfa
             echo json_encode(
                 ["unreadCounter" => $recipient[0]->unreadCounter]
             );
+            exit();
         } else {
             header("Location: user/login ");
         }
@@ -192,13 +193,14 @@ class DialogController extends PageController implements MessageComponentInterfa
             if (isset($_POST)) {
                 $dialog = new Dialogs($_POST['dialogName'], $id);
                 $dialog->id  = $dialogMapper->insert($dialog);
-                echo $dialog->id;
                 $recipient = new Recipient($id, $dialog->id);
                 $recipientMapper->insert($recipient);
                 foreach ($_POST['friendIds'] as $userId) {
                     $recipient = new Recipient($userId, $dialog->id);
                     $recipientMapper->insert($recipient);
                 }
+                echo $dialog->id;
+                exit();
             }
         } else {
             header("Location: user/login ");
@@ -217,6 +219,7 @@ class DialogController extends PageController implements MessageComponentInterfa
                     "lastName" => $user->lastName
                 )
             );
+            exit();
         } else {
             header("Location: user/login ");
         }
