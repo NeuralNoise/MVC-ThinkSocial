@@ -32,6 +32,7 @@
                         <div class="w3-container w3-padding">
                             <a href="#" id="addAlbum" class="w3-btn w3-theme"><i class="fa fa-pencil"></i>   Edit album</a>
                             <a href="#" id="addPhotos" class="w3-btn w3-theme"><i class="fa fa-pencil"></i>   Add new photos</a>
+                            <a href="/albums/" class="linkAllAlbums w3-btn w3-theme">All albums</a>
                         </div>
                     </div>
                 </div>
