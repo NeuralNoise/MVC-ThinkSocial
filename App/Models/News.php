@@ -20,7 +20,5 @@ class News extends ActiveRecord
                                      'picture' => 'picture',
                                      'status' => 'status',
                                      'created_at' => 'created_at',
-                                     'deleted' => 'deleted',
-                                     'user_id' => 'userId',
                                     ];
 }

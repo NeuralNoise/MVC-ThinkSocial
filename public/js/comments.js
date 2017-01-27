@@ -37,8 +37,9 @@
                 dataMsg = this.value;
             });
 
-            console.log(dataMsg);
+
             var idNews = $(this).attr("data-id");
+
             $.ajax({
                 type: 'POST',
                 url: 'comments/add-comments',
@@ -66,8 +67,12 @@
                     data: {'id': JSON.stringify($(this).attr("data-id"))},
                     success: function (result) {
                         var data = JSON.parse(result);
-                        data.forEach(function (item, i, data) {
-                            $('article div[comment-id="' + idNews+'"]').append(getCommentTemplate(item));
+                        console.log(data);
+                        var comments = data.comments;
+                        var user = data.user;
+
+                        comments.forEach(function (item, i, comments) {
+                            $('article div[comment-id="' + idNews+'"]').append(getCommentTemplate(item, user));
                         });
 
                     },
@@ -92,12 +97,12 @@
             });
         });
 
-        function getCommentTemplate(data) {
+        function getCommentTemplate(data, user) {
             return    '<div class="row">'
-                    + '<div class="user-avatar"><img src="/img/ava.jpg"></div>'
+                    + '<div class="user-avatar"><img src="avatars/'+user.avatarFileName+'"></div>'
                     + '<div class="comment-info">'
                     + '<div class="row">'
-                    + '<div class="username">'+data.user.firstName+' '+data.user.lastName+'</div>'
+                    + '<div class="username">'+user.firstName+' '+user.lastName+'</div>'
                     + '<div class="comment-time">'+data.created_at+'</div>'
                     + '<div class="comment-delete"  data-id="'+data.id+'"> <i class="fa fa-times" aria-hidden="true"></i></div>'
                     + '<div class="text-comment">'+data.text+'</div></div></div>';

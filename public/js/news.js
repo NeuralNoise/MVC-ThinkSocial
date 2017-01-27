@@ -53,8 +53,12 @@
             success: function (result) {
                 var data = JSON.parse(result);
 
-                data.forEach(function (item, i, data) {
-                    var allPost = getPostTemplate(item);
+                var news = data.news;
+                var user = data.user;
+
+
+                news.forEach(function (item, i, news) {
+                    var allPost = getPostTemplate(item, user);
                     $('article').append(allPost);
                 });
 
@@ -64,10 +68,10 @@
             }
         });
 
-        function getPostTemplate(data) {
+        function getPostTemplate(data, user) {
             return '<div class="post block-article row">'
-                + '<div class="author-avatar"> <img src="/img/ava.jpg"> </div>'
-                + '<div class="author-name"> <h3>'+data.user.firstName+' '+data.user.lastName+'</h3> </div>'
+                + '<div class="author-avatar"> <img src="avatars/'+user.avatarFileName+'"> </div>'
+                + '<div class="author-name"> <h3>'+user.firstName+' '+user.lastName+'</h3> </div>'
                 + '<div class="post-time">'+data.created_at+'</div>'
                 + '<div class="title-post"> <h2>'+data.title+'</h2> </div>'
                 + '<div class="description"> <p>'+data.text+'</p> </div>'

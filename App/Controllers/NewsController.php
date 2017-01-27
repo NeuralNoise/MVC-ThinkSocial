@@ -15,31 +15,36 @@ class NewsController extends PageController
         $news->title = $_POST['title-news'];
         $news->text = $_POST['text-news'];
         $news->picture = "/img/img-post.jpg";
-        $news->userId = $user;
         $news->insert();
+
+        $newsId = $news->id;
+
+        $userNews = new UserNews();
+        $userNews->userId = $user;
+        $userNews->newsId = $newsId;
+        $userNews->insert();
     }
 
     public function actionGet()
     {
+        $result = parent::actionIndex();
+        News::clearJoins();
+        News::clearJoinsDB();
+        News::joinDB('news.id', 'users_news', 'news_id', [], false, ' AND users_news.user_id=:userId');
         if (isset($_POST['startFrom'])) {
-            News::clearJoins();
-            News::clearJoinsDB();
-            News::join('userId', 'App\Models\User', 'id');
-            $news = News::getByCondition(['deleted' => 0],
+            $news = News::getByCondition(['userId' => $this->userId, 'status' => 'active'],
                                          "ORDER BY created_at DESC LIMIT " . $_POST['startFrom'] . ", 4");
         } else {
-            News::clearJoins();
-            News::clearJoinsDB();
-            News::join('userId', 'App\Models\User', 'id');
-            $news = News::getByCondition(['deleted' => 0], "ORDER BY created_at DESC LIMIT 4");
+            $news = News::getByCondition(['userId' => $this->userId, 'status' => 'active'], "ORDER BY created_at DESC LIMIT 4");
         }
-        echo json_encode($news);
+        $result['news'] = $news;
+        echo json_encode($result);
         exit;
     }
 
     public function actionDelete()
     {
         $idDeletedNews = json_decode($_POST['id']);
-        News::deleteSoft($idDeletedNews);
+        News::setStatus($idDeletedNews, "delete");
     }
 }
