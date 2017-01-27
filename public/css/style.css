@@ -210,3 +210,19 @@
     max-height: 90%;
     max-width: 90%;
 }
+
+.people img{
+    width: 20%;
+}
+.people .name {
+    display: inline-block;
+    margin-top: 44px;
+    float: right;
+}
+.people .button {
+    display: inline-block;
+    margin-bottom: 10px;
+    position: relative;
+    right: -60%;
+}
+

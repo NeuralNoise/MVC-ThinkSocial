@@ -22,10 +22,10 @@
                             $hrefViewPeoples = '/friend/add/' . $allPeople->id;
                         }
                         ?>
-                        <div class="w3-container w3-card-2 w3-white w3-round w3-margin">
+                        <div class="people w3-container w3-card-2 w3-white w3-round w3-margin">
                             <img src="/avatars/<?=$allPeople->avatarFileName?>">
-                            <a href="#"><p><h3><?=$allPeople->firstName . ' ' . $allPeople->lastName;?></h3></p></a>
-                            <a href="<?=$hrefViewPeoples?>" class="w3-btn w3-theme"><?=$viewPeoples?></a>
+                            <a class='name' href="#"><p><h3><?=$allPeople->firstName . ' ' . $allPeople->lastName;?></h3></p></a>
+                            <a href="<?=$hrefViewPeoples?>" class="button w3-btn w3-theme"><?=$viewPeoples?></a>
                         </div>
                     <?php endforeach;?>
                 </div>

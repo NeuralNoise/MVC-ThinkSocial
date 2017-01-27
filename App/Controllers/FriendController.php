@@ -33,7 +33,6 @@ class FriendController extends PageController
             $strFriends = implode(',', $result['friend']);
         }
 
-
         $result['myFriend'] = User::getByDirectSQL(
             ['userId' => $this->userId],
             "SELECT first_name as firstName, last_name as lastName, id 
@@ -50,26 +49,29 @@ class FriendController extends PageController
 
         $avatarUserId = [];
         $countAvatar = count($avatar);
+
         for ($i = 0; $i < $countAvatar; $i++) {
             $avatarUserId[] = $avatar[$i]->userId;
         }
-        
-        for ($i = 0; $i < $countFriends; $i++) {
-            if (!empty($result['friend']) || !empty($avatarUserId)) {
 
-                $searchAvatarFriend = in_array($result['friend'][$i], $avatarUserId);
+        for ($i = 0; $i < $countFriends; $i++) {
+            if (!empty($result['myFriend']) && !empty($avatarUserId)) {
+
+                $searchAvatarFriend = in_array($result['myFriend'][$i]->id, $avatarUserId);
 
                 if (!$searchAvatarFriend) {
                     $result['myFriend'][$i]->avatarFileName = 'default.jpeg';
                 } else {
-                    for ($k = 0; $k < $countFriends; $k++) {
-                        for ($j = 0; $j < $countAvatar; $j++) {
-                            if ($result['myFriend'][$k]->id == $avatar[$j]->userId) {
-                                $result['myFriend'][$k]->avatarFileName = $avatar[$j]->fileName;
+                    for ($k = 0; $k < $countAvatar; $k++) {
+                        for ($j = 0; $j < $countFriends; $j++) {
+                            if ($result['myFriend'][$j]->id == $avatar[$k]->userId) {
+                                $result['myFriend'][$j]->avatarFileName = $avatar[$k]->fileName;
                             }
                         }
                     }
                 }
+            } else {
+                $result['myFriend'][$i]->avatarFileName = 'default.jpeg';
             }
         }
 
@@ -202,7 +204,7 @@ class FriendController extends PageController
              FROM friends 
              WHERE (user_sender = $this->userId AND user_receiver = $id)
              OR (user_sender = $id AND user_receiver = $this->userId)
-             AND (status = 'applied' OR status = 'unapplied')"
+             AND status IN ('applied', 'unapplied', 'declined')"
         );
         if (empty($users)) {
             $newFrend = new Friend();
@@ -230,7 +232,8 @@ class FriendController extends PageController
             $friendReqId = $_POST['friendRequestId'];
             Friend::setStatus($friendReqId, 'applied');
         }
-        header('Location: /');
+        $url = $_SERVER['HTTP_REFERER'];
+        header("Location: " . $url);
     }
 
     public function actionDecline()
@@ -241,7 +244,8 @@ class FriendController extends PageController
             $friendReqId = $_POST['friendRequestId'];
             Friend::setStatus($friendReqId, 'declined');
         }
-        header('Location: /');
+        $url = $_SERVER['HTTP_REFERER'];
+        header("Location: " . $url);
     }
 
     public function actionIncoming()
