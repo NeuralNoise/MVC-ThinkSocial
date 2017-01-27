@@ -7,7 +7,7 @@
  */
 
 return array(
-    'host' => 'think-social.local',
+    'host' => 'ts.local',
     'memcachedPort' => 11211,
     'websocketPort' => 8080,
 );
