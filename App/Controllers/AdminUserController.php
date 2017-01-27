@@ -16,7 +16,7 @@ class AdminUserController extends PageController
     {
         User::joinDB('users.id', 'users_avatars', 'user_id', ['id' => 'userAvatarId', 'file_name' => 'avatarFileName'],true);
 
-        $users = User::getAll();
+        $users = User::getAll("WHERE users.status <> 'delete'");
 
         return ['templateNames' => ['/admin_user/index'],
         'users' => $users
@@ -33,14 +33,14 @@ class AdminUserController extends PageController
 
         $errors = false;
 
-        User::join('id', 'App\Models\Password', 'userId');
-        $user = User::getByID($id);
+         $user = User::getByID($id);
+         $password = Password::getByCondition(['userId'=>$user->id])[0];
 
         if (isset($_POST['submit'])) {
 
             $user->firstName = $_POST['name'];
             $user->email = $_POST['email'];
-            $user->password[0]->password = $_POST['password'];
+            $password->password = $_POST['password'];
 
 
             if (!User::checkName($user->firstName)) {
@@ -49,14 +49,13 @@ class AdminUserController extends PageController
             if (!User::checkEmail($user->email)) {
                 $errors['email'] = 'Incorrect email';
             }
-            if (!User::checkPassword($user->password[0]->password)) {
+            if (!User::checkPassword($password->password)) {
                 $errors['password'] = 'Пароль не должен быть короче 6-ти символов';
             }
 
             if ($errors == false) {
                 $user->update();
-                //$user->password[0]->update();
-                print_r($user);exit;
+                $password->update();
                 header("Location: /admin/task");
             }
 
@@ -65,6 +64,7 @@ class AdminUserController extends PageController
 
         return ['templateNames' => ['/admin_user/update'],
             'user' => $user,
+            'password' => $password->password,
             'errors' => $errors
         ];
     }
@@ -77,7 +77,7 @@ class AdminUserController extends PageController
         self::checkAdmin();
 
         if (isset($_POST['submit'])) {
-            User::delete($id);
+            User::setStatus($id,'delete');
 
             header("Location: /admin/task");
         }

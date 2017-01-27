@@ -28,7 +28,7 @@ include ROOT . '/resources/views/layouts/auth/header.php';
                             </h3>
                         </div>
                         <div class="panel-body">
-                          <img src="/public/avatars/<?=isset($user->avatarFileName)? $user->avatarFileName:'default.jpeg'?>" style="height:120px;width:100px">
+                          <img src="/avatars/<?=isset($user->avatarFileName)? $user->avatarFileName:'default.jpeg'?>" style="height:120px;width:100px">
                              <hr/>
                             <div class="pull-right">
                                 <a class="btn btn-info" href="/admin/user/update/<?= $user->id ?>">

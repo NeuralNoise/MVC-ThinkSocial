@@ -38,7 +38,7 @@ include ROOT . '/resources/views/layouts/auth/header.php';
             </div>
             <div class="form-group">
                 <label for="password">Password: *</label>
-                <input class="form-control" placeholder="Пароль" name="password" type="text"  id="password" value="<?= $user->password[0]->password; ?>">
+                <input class="form-control" placeholder="Пароль" name="password" type="text"  id="password" value="<?= $password; ?>">
                 <?php if (isset($errors['password'])) { ?>
                     <span class="help-block">
                                         <strong><?php echo $errors['password']; ?></strong>
