@@ -10,12 +10,17 @@
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/font-awesome.css">
     <link rel="stylesheet" href="/css/groups.css">
+    <link rel="stylesheet" href="/css/newsstyle.css">
     <link href="/favicon.ico" rel="icon" type="image/x-icon" />
 
     <script src="/js/jquery-3.1.1.min.js"></script>
     <script src="/js/addAlbum.js"></script>
     <script src="/js/scaleThePhoto.js"></script>
     <script src="/js/groups.js"></script>
+
+    <script src="/js/news.js"></script>
+    <script src="/js/scrolling.js"></script>
+    <script src="/js/comments.js"></script>
 
     <style>
         html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}

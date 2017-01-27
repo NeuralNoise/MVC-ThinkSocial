@@ -1,0 +1,53 @@
+$(document).ready(function(){
+
+    var inProgress = false;
+    var startFrom = 4;
+
+    $(window).scroll(function() {
+
+        if($(window).scrollTop() + $(window).height() >= $(document).height() - 200 && !inProgress) {
+
+            $.ajax({
+                url: 'news/get-news',
+                method: 'POST',
+                data: {"startFrom" : startFrom},
+                beforeSend: function() {
+                    inProgress = true;}
+            }).done(function(result){
+
+                var data = JSON.parse(result);
+
+                if (data.length > 0) {
+
+                    $.each(data, function(i, item) {
+                        var allPost = getPostTemplate(item);
+                        $('article').append(allPost);
+                    });
+
+                    inProgress = false;
+                    startFrom += 4;
+                }
+            });
+        }
+    });
+
+    function getPostTemplate(data) {
+        return '<div class="post block-article row">'
+            + '<div class="author-avatar"> <img src="/img/ava.jpg"> </div>'
+            + '<div class="author-name"> <h3>'+data.user.firstName+' '+data.user.lastName+'</h3> </div>'
+            + '<div class="post-time">'+data.created_at+'</div>'
+            + '<div class="title-post"> <h2>'+data.title+'</h2> </div>'
+            + '<div class="description"> <p>'+data.text+'</p> </div>'
+            + '<div class="post-image"> <img src="'+data.image+'" class="img-responsive"> </div>'
+            + '<div class="post-buttons"> <button type="button" class="btn btn-info btn-service"> <i class="fa fa-thumbs-up" aria-hidden="true"></i> Like </button>'
+            + '<button type="button" class="btn btn-info btn-service btn-comment" data-id="'+data.id+'"> <i class="fa fa-comment" aria-hidden="true"></i> Comment </button>'
+            + '<button type="button" class="btn btn-info btn-service btn-delete" data-id="'+data.id+'" > <i class="fa fa-trash" aria-hidden="true"></i> Delete </button> </div>'
+            + '<div class="write-comment unique-form-'+data.id+'"> <h4>Write your comment:</h4>'
+            + '<form id="write-comments-form"  form-id = "'+data.id+'" action="" method="post">'
+            + '<textarea class="form-control" rows="3" name="text-comments"></textarea>'
+            + '<button type="submit" class="btn btn-info btn-service btn-add-comment" data-id="'+data.id+'" > <i class="fa fa-paper-plane" aria-hidden="true"></i> Add comment </button> </form></div>'
+            + '<div class="show-button"><button type="button" class="btn btn-info btn-show" data-id="'+data.id+'" > <i class="fa fa-eye" aria-hidden="true"></i> Show comments </button> </div>'
+            + '<div class="comments" comment-id="'+data.id+'"></div>'
+            + '</div>';
+    }
+});

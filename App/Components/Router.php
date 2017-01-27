@@ -48,7 +48,6 @@ class Router
      */
     public function run()
     {
-
         $uri = $this->getURI();
 
         // Check the availability of this request in the array of routes (routesOld.php)
