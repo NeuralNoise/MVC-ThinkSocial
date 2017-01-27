@@ -539,18 +539,9 @@ CREATE TABLE `passwords` (
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `fk_passwords_users1_idx` (`user_id`),
   CONSTRAINT `fk_passwords_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE  RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `passwords`
---
-
-LOCK TABLES `passwords` WRITE;
-/*!40000 ALTER TABLE `passwords` DISABLE KEYS */;
-INSERT INTO `passwords` (id, user_id, password) VALUES (1,1,'qwerty'),(2,2,'q1w2e3'),(3,3,'qwerty123');
-/*!40000 ALTER TABLE `passwords` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `phones`
@@ -597,18 +588,8 @@ CREATE TABLE `roles` (
   `updated_at` TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `roles`
---
-
-LOCK TABLES `roles` WRITE;
-/*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-INSERT INTO `roles` (name) VALUES ('admin'),('user'),('unknown'),('groupOwner'),('groupSubscriber');
-/*!40000 ALTER TABLE `roles` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `users`
@@ -631,7 +612,7 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `idusers_UNIQUE` (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
@@ -812,7 +793,7 @@ CREATE TABLE `users_roles` (
   KEY `fk_users_roles_roles1_idx` (`role_id`),
   CONSTRAINT `fk_users_roles_roles1` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE NO ACTION ON UPDATE RESTRICT,
   CONSTRAINT `fk_users_roles_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE  RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -956,6 +937,8 @@ DELIMITER ;
 CREATE USER 'dev'@'localhost' IDENTIFIED BY 'qqq';
 GRANT ALL ON ts.* TO 'dev'@'localhost';
 
+INSERT INTO `roles` (name) VALUES ('admin'),('user'),('unknown'),('groupOwner'),('groupSubscriber');
+
 --
 -- Dumping data for table `users`
 --
@@ -972,9 +955,6 @@ INSERT INTO `users` (id, first_name, middle_name, last_name, email, birthday, se
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Dumping data for table `friends`
---
 insert into friends (user_sender, user_receiver) values (4,5);
 
 insert into groups (name, description) values ('Наш сад', 'Группа для любителей садоводства'),
@@ -1005,10 +985,10 @@ insert into news (title, text, picture, published) values
 
 insert into users_news (news_id, user_id) values (3,5), (4,5), (5,5);
 
-insert into users_avatars (user_id, file_name) values (5, 'red.JPG');
+insert into users_avatars (user_id, file_name) values (5, 'red.jpg');
 insert into users_avatars (user_id, file_name) values (4, 'zveropolis.jpeg');
 
-insert into users_cities (user_id, city_id) values (5,2), (4,1), (6,3);
+insert into users_cities (user_id, city_id) values (5,2), (4,1), (6,3), (1,1), (2,3), (3,2);
 
 insert into comments (user_id, text, published) values
 (4, 'Можно с Вами познакомиться?  :)', '2017-01-11 12:33:16'),
@@ -1031,7 +1011,6 @@ insert into albums_photos_comments (comment_id, albums_photos_id) values (5, 1),
 
 INSERT INTO `friends` (user_sender, user_receiver, status) VALUES (1,2,'applied'),(1,3,'unapplied'),(1,4,'applied'),(5,1,'applied'),(2,3,'applied'),(6,5,'unapplied');
 
-insert into passwords (user_id, password) values (5, '111111');
+insert into passwords (user_id, password) values (1, '111111'), (2, '111111'), (3, '111111'), (4, '111111'), (5, '111111'), (6, '111111');
 
-insert into users_cities (user_id, city_id) values (5, 1);
-
+INSERT INTO users_roles (user_id, role_id) values (5, 1);

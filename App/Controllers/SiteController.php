@@ -14,7 +14,7 @@ class SiteController extends PageController
 {
     private function getNewsInfo()
     {
-        News::joinDB('news.id', 'users_news', 'id', [], false, ' AND users_news.user_id=:userId');
+        News::joinDB('news.id', 'users_news', 'news_id', [], false, ' AND users_news.user_id=:userId');
         News::join('id', 'App\Models\NewsComment', 'newsId', ' ORDER BY comments.published DESC LIMIT 3');
         NewsComment::joinDB('news_comments.comment_id', 'comments', 'id', ['user_id' => 'userId',
             'text' => 'text', 'status' => 'status', 'published' => 'published']);

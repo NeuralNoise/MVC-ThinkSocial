@@ -23,6 +23,7 @@ return [
     'profile/input' => 'profile/input',
     'profile/insert' => 'profile/insert',
     'profile/delete' => 'profile/delete',
+    'profile/upload' => 'profile/upload',
 
     /*****ALBUMS******/
 
