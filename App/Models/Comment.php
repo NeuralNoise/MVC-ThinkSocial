@@ -17,7 +17,8 @@ class Comment extends ActiveRecord
                                      'id' => 'id',
                                      'user_id' => 'userId',
                                      'text' => 'text',
+                                     'created_at' => 'created_at',
                                      'status' => 'status',
-                                     'published' => 'published',
-                                    ];
+
+    ];
 }
