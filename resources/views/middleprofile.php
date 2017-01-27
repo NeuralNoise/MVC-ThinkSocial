@@ -1,7 +1,25 @@
     <!-- Middle Column -->
     <div class="w3-col m7">
 
-    <style>
+        <div class="w3-row-padding">
+            <div class="w3-col m12">
+                <div class="w3-card-2 w3-round w3-white">
+                    <div class="w3-container w3-padding">
+                        <!--              <h6 class="w3-opacity">Social Media template by w3.css</h6>
+                                      <p class="w3-border w3-padding" contenteditable="true"> New post</p>  -->
+                        <button type="button" class="w3-btn w3-theme" id="changeAvatar"><i class="fa"></i>Change avatar</button>
+                        <form name="userAvatar" class="userAvatar" action="/profile/upload/" method="post" enctype="multipart/form-data" hidden>
+                            <input type="file" id="fileName" name="fileName" class="fileName">
+                            <input type="submit" class="avatar profile" id="submitAvatar" value="OK">
+                            <input type="reset" class="avatar profile" id="resetAvatar" value="Reset">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <style>
         label {
             float: left;
             display: inline-block;
@@ -69,6 +87,12 @@
                 $('#inputPhone').prop('required', false);
                 $('.input').css('visibility', 'hidden');
                 $('form.userPhones').attr('action', '/profile/input/');
+            });
+            $('#resetAvatar').click(function(){
+                $('.userAvatar').hide();
+            });
+            $('#changeAvatar').click(function(){
+                $('.userAvatar').show();
             });
         });
     </script>

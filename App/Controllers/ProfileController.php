@@ -1,6 +1,8 @@
 <?php
 namespace App\Controllers;
-use App\Models\{User, Phone};
+use App\Models\{
+    User, Phone, UserAvatar
+};
 
 /**
  * Created by PhpStorm.
@@ -86,7 +88,7 @@ class ProfileController extends PageController
 
         $newPhone = new Phone();
         $newPhone->userId = $this->userId;
-        $newPhone->phone = $_POST['newPhone'];
+        $newPhone->phone = htmlentities($_POST['newPhone']);
         $newPhone->insert();
         header('Location: /profile/show/');
     }
@@ -96,5 +98,50 @@ class ProfileController extends PageController
     {
         Phone::delete($_POST['phoneID']);
         header('Location: /profile/show/');
+    }
+
+
+    public function actionUpload()
+    {
+        $this->userId = User::checkLogged();
+
+        if (!isset($_FILES['fileName'])) {
+            throw new \Exception('Photo required');
+        }
+        $this->fileValidation(0);
+        $path = ROOT . '/public/avatars/';
+        $ext = explode('.', $_FILES['fileName']['name']);
+        $newName = md5(time() . $ext[0]) . '.' . $ext[1];
+        $full_path = $path . $newName;
+        if (!move_uploaded_file($_FILES['fileName']['tmp_name'], $full_path)) {
+            header('Location: /profile/show/');
+        }
+
+        $avatar = UserAvatar::getByCondition(['userId' => $this->userId]);
+        if (!isset($avatar)) {
+            $avatar = new UserAvatar();
+            $avatar->userId = $this->userId;
+            $avatar->fileName = $newName;
+            $avatar->status = 'active';
+            $avatar->insert();
+        } else {
+            $avatar->fileName = $newName;
+            $avatar->status = 'active';
+            $avatar->update();
+        }
+        header('Location: /profile/show/');
+    }
+
+    private function fileValidation($i)
+    {
+        $size = 1024 * 3 * 1024;//3 Mb
+        $allowedExts = ['jpg', 'jpeg', 'gif', 'png'];
+        $ext = explode('.', $_FILES['fileName']['name']);
+        if ($_FILES['fileName']['size'] > $size
+            || $_FILES['fileName']['error'] != 0
+            || !in_array(end($ext), $allowedExts)
+        ) {
+            throw new \Exception('Size > 3 Mb OR some error occurred OR unsupported format');
+        }
     }
 }

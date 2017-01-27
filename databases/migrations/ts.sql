@@ -1008,7 +1008,7 @@ insert into users_news (news_id, user_id) values (3,5), (4,5), (5,5);
 insert into users_avatars (user_id, file_name) values (5, 'red.JPG');
 insert into users_avatars (user_id, file_name) values (4, 'zveropolis.jpeg');
 
-insert into users_cities (user_id, city_id) values (5,2), (4,1), (6,3);
+insert into users_cities (user_id, city_id) values (5,2), (4,1), (6,3), (1,1), (2,3), (3,2);
 
 insert into comments (user_id, text, published) values
 (4, 'Можно с Вами познакомиться?  :)', '2017-01-11 12:33:16'),
@@ -1019,19 +1019,15 @@ insert into comments (user_id, text, published) values
 (6, 'Да уж! Мечтать не вредно...', '2017-01-12 12:33:16'),
 (4, 'А мне он не нравится! Слишком слащавый', '2017-01-13 12:33:16');
 
-insert into comments (user_id, text, status, published) values
-(4, 'Ненавижу!!!!!', 'block', '2017-01-19 12:33:16'),
-(6, 'Тебе что, дура, больше заняться нечем?', 'delete', '2017-01-19 12:33:16');
-
 insert into users_avatars_comments (user_avatar_id, comment_id) values (1, 1), (1, 2);
 
-insert into news_comments (news_id, comment_id) values (3, 3), (4, 4), (3, 8), (3, 9);
+insert into news_comments (news_id, comment_id) values (3, 3), (4, 4);
 
 insert into albums_photos_comments (comment_id, albums_photos_id) values (5, 1), (6, 4), (7, 4);
 
 INSERT INTO `friends` (user_sender, user_receiver, status) VALUES (1,2,'applied'),(1,3,'unapplied'),(1,4,'applied'),(5,1,'applied'),(2,3,'applied'),(6,5,'unapplied');
 
-insert into passwords (user_id, password) values (5, '111111');
+insert into passwords (user_id, password) values (1, '111111'), (2, '111111'), (3, '111111'), (4, '111111'), (5, '111111'), (6, '111111');
 
-insert into users_cities (user_id, city_id) values (5, 1);
+
 

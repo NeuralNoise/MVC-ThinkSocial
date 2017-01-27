@@ -8,7 +8,9 @@
             <div class="w3-card-2 w3-round w3-white">
                 <div class="w3-container">
                     <h4 class="w3-center">My Profile</h4>
-                    <p class="w3-center"><img src="/avatars/<?=$user->avatarFileName?>" class="w3-circle" style="height:106px;width:106px" alt="Avatar"></p>
+                    <div class="avatar">
+                        <p class="w3-center"><img src="/avatars/<?=$user->avatarFileName?>" class="w3-circle" style="height:106px;width:106px" alt="Avatar"></p>
+                    </div>
                     <hr>
                     <!--         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> Designer, UI</p> -->
                     <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i><?= isset($cities[0]->name)? 'г.'.$cities[0]->name.', '.$cities[0]->countryName : 'Город не указан'?></p>
