@@ -19,11 +19,11 @@ class ProfileController extends PageController
         $result['templateNames'] = [
             'head', 'navbar', 'leftcolumn', 'middleprofile', 'rightcolumn', 'footer',
         ];
-        $result['title'] = 'Профиль';
+        $result['title'] = 'Profile';
         $result['submitAction'] = 'edit';
-        $result['submitValue'] = 'Редактировать';
+        $result['submitValue'] = 'Edit profile';
         $result['submitPhoneAction'] = 'input';
-        $result['submitPhoneValue'] = 'Добавить';
+        $result['submitPhoneValue'] = 'Add phone';
         $result['allowEdit'] = 'disabled';
         $result['userPhones'] = Phone::getByCondition(['userId' => $this->userId]);
 
@@ -37,11 +37,11 @@ class ProfileController extends PageController
         $result['templateNames'] = [
             'head', 'navbar', 'leftcolumn', 'middleprofile', 'rightcolumn', 'footer',
         ];
-        $result['title'] = 'Редактирование профиля';
+        $result['title'] = 'Changing profile';
         $result['submitAction'] = 'update';
-        $result['submitValue'] = 'Подтвердить';
+        $result['submitValue'] = 'Submit';
         $result['submitPhoneAction'] = 'input';
-        $result['submitPhoneValue'] = 'Добавить';
+        $result['submitPhoneValue'] = 'Add phone';
         $result['allowEdit'] = 'enabled';
         $result['userPhones'] = Phone::getByCondition(['userId' => $this->userId]);
 
@@ -55,9 +55,9 @@ class ProfileController extends PageController
         $result['templateNames'] = [
             'head', 'navbar', 'leftcolumn', 'middleprofile', 'rightcolumn', 'footer',
         ];
-        $result['title'] = 'Добавление телефона';
+        $result['title'] = 'Adding phone';
         $result['submitAction'] = 'edit';
-        $result['submitValue'] = 'Редактировать';
+        $result['submitValue'] = 'Edit profile';
         $result['submitPhoneAction'] = 'insert';
         $result['submitPhoneValue'] = 'OK';
         $result['allowEdit'] = 'disabled';
@@ -73,7 +73,7 @@ class ProfileController extends PageController
 
         $user = User::getByID($this->userId);
         foreach ($_POST as $field => $value) {
-            $user->{$field} = $value;
+            $user->{$field} = htmlentities($value);
         }
         $user->update();
         header('Location: /profile/show/');

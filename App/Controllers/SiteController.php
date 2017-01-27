@@ -26,9 +26,9 @@ class SiteController extends PageController
         foreach ($news as $oneNews) {
             foreach ($oneNews->newsComment as $oneComment) {
                 if ($oneComment->status == 'block') {
-                    $oneComment->text = '... <small>(комментарий пользователя был заблокирован)</small>';
+                    $oneComment->text = '... <small>(the comment is blocked)</small>';
                 } elseif ($oneComment->status == 'delete') {
-                    $oneComment->text = '... <small>(комментарий пользователя был удален)</small>';
+                    $oneComment->text = '... <small>(the comment is deleted)</small>';
                 }
             }
         }

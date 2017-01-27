@@ -29,11 +29,11 @@
                     <p><?=$oneNews->text?></p>
                     <!--          <button type="button" class="w3-btn w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i> &nbsp;Like</button>  -->
                     <button type="button" class="w3-btn w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i> &nbsp;Comment</button>
-                    <p><h4>Комментарии пользователей:</h4></p>
+                    <p><h4>Users' comments:</h4></p>
                     <?php foreach ($oneNews->newsComment as $newsComment): ?>
                         <p><img src="/avatars/<?=isset($newsComment->avatarFileName)? $newsComment->avatarFileName:'default.jpeg'?>" class="w3-circle" style="height:25px;width:25px" alt="Avatar">
-                            <?=$newsComment->published?> пользователь <strong><?=$newsComment->firstName?>
-                            <?=$newsComment->lastName?></strong> написал(а):<br />
+                            <?=$newsComment->published?> user <strong><?=$newsComment->firstName?>
+                            <?=$newsComment->lastName?></strong> wrote:<br />
                         <em class="comment"><?=$newsComment->text?></em></p>
                     <?php endforeach; ?>
                 </div>
