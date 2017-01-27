@@ -26,7 +26,8 @@
     z-index: 100;
 }
 #addAlbum:hover,
-#addPhotos:hover {
+#addPhotos:hover,
+.linkAllAlbums:hover {
     -webkit-box-shadow: 0 0 9px 2px rgba(0,0,0,0.4);
     -moz-box-shadow: 0 0 9px 2px rgba(0,0,0,0.4);
     -o-box-shadow: 0 0 9px 2px rgba(0,0,0,0.4);
@@ -110,11 +111,14 @@
     -o-transition: background-color .25s;
     transition: background-color .25s;
 }
-.blockAlbum:hover {
-    background-color: #7d97a5;
-}
     .blockAlbum a {
         text-decoration: none;
+    }
+    .blockAlbum a:hover {
+        text-decoration: underline;
+    }
+    .blockAlbum a:hover .blockAlbum {
+        background-color: #7d97a5;
     }
     .blockAlbum h3 {
         display: inline;
@@ -206,3 +210,19 @@
     max-height: 90%;
     max-width: 90%;
 }
+
+.people img{
+    width: 20%;
+}
+.people .name {
+    display: inline-block;
+    margin-top: 44px;
+    float: right;
+}
+.people .button {
+    display: inline-block;
+    margin-bottom: 10px;
+    position: relative;
+    right: -60%;
+}
+

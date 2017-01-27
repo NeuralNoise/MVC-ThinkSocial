@@ -40,11 +40,11 @@
                     <div id="Demo3" class="w3-accordion-content w3-container">
                         <div class="w3-row-padding">
                             <a class="allAlbums" href="/albums/">All albums</a>
-                            <br>
                             <?php foreach ($albums as $album): ?>
                                 <div class="w3-half">
-
-                                    <img src="/photos/<?=$album->albumPhoto[0]->fileName?>" style="width:100%" class="w3-margin-bottom" alt="<?=$album->name?>">
+                                    <a href="/album/<?=$album->albumPhoto[0]->albumId;?>">
+                                        <img src="/photos/<?=$album->albumPhoto[0]->fileName?>" style="width:100%" alt="<?=$album->name?>" title="<?=$album->name?>">
+                                    </a>
                                 </div>
                             <?php endforeach; ?>
                         </div>
