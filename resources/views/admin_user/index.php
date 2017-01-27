@@ -1,5 +1,5 @@
 <?php
-//include ROOT . '/views/layouts/header.php';
+include ROOT . '/resources/views/layouts/auth/header.php';
 ?>
     <div class="container">
         </br>
@@ -11,30 +11,30 @@
         </div>
         <h1 class="text-center">
         </h1>
-        <div class="text-right"><b>All messages:</b> <i class="badge"><?php echo count($tasks); ?></i></div>
+        <div class="text-right"><b>All users:</b> <i class="badge"><?php echo count($users); ?></i></div>
         <br/>
         <div class="messages">
-            <?php if (count($tasks)) { ?>
-                <?php foreach ($tasks as $task) { ?>
+            <?php if (count($users)) { ?>
+                <?php foreach ($users as $user) { ?>
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title">
                            <span>
-                         <a href="/admin/task/update/<?php echo $task['id'] ?>"><?php echo $task['name'] ?></a>
+                         <a href="/admin/user/update/<?php echo $user->id ?>"><?= $user->firstName . ' ' .  $user->lastName ?></a>
                         </span>
                                 <span class="pull-right label label-info">
-                           <?php echo $task['date']; ?>
+                           <?php echo $user->birthday; ?>
                         </span>
                             </h3>
                         </div>
                         <div class="panel-body">
-                            <?php echo $task['message'] ?>
-                            <hr/>
+                          <img src="/avatars/<?=isset($user->avatarFileName)? $user->avatarFileName:'default.jpeg'?>" style="height:120px;width:100px">
+                             <hr/>
                             <div class="pull-right">
-                                <a class="btn btn-info" href="/admin/task/update/<?php echo $task['id'] ?>">
+                                <a class="btn btn-info" href="/admin/user/update/<?= $user->id ?>">
                                     <i class="glyphicon glyphicon-pencil"></i>
                                 </a>
-                                <a class="btn btn-danger" href="/admin/task/delete/<?php echo $task['id'] ?>">
+                                <a class="btn btn-danger" href="/admin/user/delete/<?= $user->id ?>">
                                     <i class="glyphicon glyphicon-trash"></i>
                                 </a>
                             </div>
@@ -48,5 +48,5 @@
         </div>
     </div>
 <?php
-include ROOT . '/views/layouts/footer.php';
+include ROOT . '/resources/views/layouts/auth/footer.php';
 ?>

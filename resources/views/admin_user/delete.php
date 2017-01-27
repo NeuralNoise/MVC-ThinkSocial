@@ -1,5 +1,5 @@
 <?php
-//include ROOT . '/views/layouts/header.php';
+include ROOT . '/resources/views/layouts/auth/header.php';
 ?>
     <section>
         <div class="container">
@@ -12,7 +12,7 @@
                         <li class="active">To delete a user</li>
                     </ol>
                 </div>
-                <h4>To delete a user #<?php echo $id; ?></h4>
+                <h4>To delete a user #<?= $id; ?></h4>
                 <p>Do you want to remove this user?</p>
                 <form method="post">
                     <input type="submit" name="submit" value="Delete"/>
@@ -21,5 +21,5 @@
         </div>
     </section>
 <?php
-//include ROOT . '/views/layouts/footer.php';
+include ROOT . '/resources/views/layouts/auth/footer.php';
 ?>

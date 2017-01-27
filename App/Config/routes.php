@@ -7,12 +7,12 @@ return [
     'user/logout' => 'user/logout',
 
     // Management users: (future)
-    //'admin/user/create' => 'adminUser/create',
-    //'admin/user/update/([0-9]+)' => 'adminUser/update/$1',
-    //'admin/user/delete/([0-9]+)' => 'adminUser/delete/$1',
-    //'admin/user' => 'adminUser/index',
+    'admin/user/create' => 'adminUser/create',
+    'admin/user/update/([0-9]+)' => 'adminUser/update/$1',
+    'admin/user/delete/([0-9]+)' => 'adminUser/delete/$1',
+    'admin/user' => 'adminUser/index',
     // Admin panel:
-    // 'admin' => 'admin/index',
+     'admin' => 'admin/index',
     //Managing the user profile
 
     /*****PROFILE******/
@@ -39,9 +39,13 @@ return [
 
     /*****FRIENDS******/
 
+    'friend/all' => 'friend/all',
+    'friend/delete/([0-9]+)' => 'friend/delete/$1',
+    'friend/add/([0-9]+)' => 'friend/add/$1',
     'friend/accept' => 'friend/accept',
     'friend/decline' => 'friend/decline',
     'friend/incoming' => 'friend/incoming',
+    'friend' => 'friend/index',
 
     /*****MAIN PAGE******/
 
