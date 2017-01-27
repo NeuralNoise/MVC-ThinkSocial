@@ -15,6 +15,7 @@ class AlbumController extends PageController
         AlbumUser::join('albumId', 'App\Models\Album', 'id');
         Album::join('id', 'App\Models\AlbumPhoto', 'albumId', " AND status='active'");
         $result['userAlbums'] = AlbumUser::getByCondition(['userId' => $this->userId]);
+        $userAlbum = Album::getByID($id);
 
         $result['templateNames'] = [
             'head',
@@ -24,6 +25,7 @@ class AlbumController extends PageController
             'rightcolumn',
             'footer',
         ];
+        $result['title'] = $userAlbum->name;
         $result['albumId'] = $id;
         return $result;
     }
@@ -50,7 +52,7 @@ class AlbumController extends PageController
             $newPhoto->status = 'active';
             $newPhoto->insert();
         }
-        header('Location: /album/' . $id);
+            header('Location: /album/' . $id);
     }
 
     public function actionDeletePhoto($id)
@@ -65,11 +67,9 @@ class AlbumController extends PageController
     public function actionUpdateAlbum($id)
     {
         $this->userId = User::checkLogged();
-
         $userAlbum = Album::getByID($id);
         $userAlbum->name = $_POST['newAlbumName'];
         $userAlbum->update();
-        
         header('Location: /album/' . $id);
     }
 
