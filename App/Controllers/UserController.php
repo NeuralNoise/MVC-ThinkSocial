@@ -88,9 +88,13 @@ class UserController
      */
     public function actionLogout()
     {
-        $session = User::initSession();
-        //$session->start();
-        $session->remove('user');
-        header("Location: /");
+//        From VKopysov
+//        $session = User::initSession();
+//        //$session->start();
+//        $session->remove('user');
+//        header("Location: /");
+        session_start();
+        unset($_SESSION['user']);
+        header('Location: /');
     }
 }

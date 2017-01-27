@@ -102,7 +102,7 @@
                     + '<div class="user-avatar"><img src="avatars/'+user.avatarFileName+'"></div>'
                     + '<div class="comment-info">'
                     + '<div class="row">'
-                    + '<div class="username">'+user.firstName+' '+user.lastName+'</div>'
+                    + '<div class="username">'+comments.firstName+' '+comments.lastName+'</div>'
                     + '<div class="comment-time">'+data.created_at+'</div>'
                     + '<div class="comment-delete"  data-id="'+data.id+'"> <i class="fa fa-times" aria-hidden="true"></i></div>'
                     + '<div class="text-comment">'+data.text+'</div></div></div>';

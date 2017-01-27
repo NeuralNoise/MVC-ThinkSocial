@@ -31,6 +31,8 @@ class CommentsController extends PageController
         Comment::clearJoinsDB();
         Comment::joinDB('comments.id', 'news_comments', 'comment_id');
         Comment::joinDB('news_comments.news_id', 'news', 'id', [], false, ' AND news.id=:newsId');
+        Comment::joinDB('comments.user_id', 'users', 'id', ['first_name' => 'firstName', 'last_name' => 'lastName']);
+        Comment::joinDB('users.id', 'users_avatars', 'user_id', ['file_name' => 'fileName']);
 
         $comments = Comment::getByCondition(['status' => 'active', 'newsId' => $relationCommentNews],
                                              "ORDER BY created_at DESC");
