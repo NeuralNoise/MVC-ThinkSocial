@@ -33,7 +33,7 @@ class NewsController extends PageController
         News::joinDB('news.id', 'users_news', 'news_id', [], false, ' AND users_news.user_id=:userId');
         if (isset($_POST['startFrom'])) {
             $news = News::getByCondition(['userId' => $this->userId, 'status' => 'active'],
-                                         "ORDER BY created_at DESC LIMIT " . $_POST['startFrom'] . ", 4");
+                "ORDER BY created_at DESC LIMIT " . $_POST['startFrom'] . ", 4");
         } else {
             $news = News::getByCondition(['userId' => $this->userId, 'status' => 'active'], "ORDER BY created_at DESC LIMIT 4");
         }

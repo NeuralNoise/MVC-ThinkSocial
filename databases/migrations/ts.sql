@@ -539,18 +539,9 @@ CREATE TABLE `passwords` (
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `fk_passwords_users1_idx` (`user_id`),
   CONSTRAINT `fk_passwords_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE  RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `passwords`
---
-
-LOCK TABLES `passwords` WRITE;
-/*!40000 ALTER TABLE `passwords` DISABLE KEYS */;
-INSERT INTO `passwords` (id, user_id, password) VALUES (1,1,'qwerty'),(2,2,'q1w2e3'),(3,3,'qwerty123');
-/*!40000 ALTER TABLE `passwords` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `phones`
@@ -597,18 +588,8 @@ CREATE TABLE `roles` (
   `updated_at` TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `roles`
---
-
-LOCK TABLES `roles` WRITE;
-/*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-INSERT INTO `roles` (name) VALUES ('admin'),('user'),('unknown'),('groupOwner'),('groupSubscriber');
-/*!40000 ALTER TABLE `roles` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `users`
@@ -631,7 +612,7 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `idusers_UNIQUE` (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
@@ -812,7 +793,7 @@ CREATE TABLE `users_roles` (
   KEY `fk_users_roles_roles1_idx` (`role_id`),
   CONSTRAINT `fk_users_roles_roles1` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE NO ACTION ON UPDATE RESTRICT,
   CONSTRAINT `fk_users_roles_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE  RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -956,6 +937,8 @@ DELIMITER ;
 CREATE USER 'dev'@'localhost' IDENTIFIED BY 'qqq';
 GRANT ALL ON ts.* TO 'dev'@'localhost';
 
+INSERT INTO `roles` (name) VALUES ('admin'),('user'),('unknown'),('groupOwner'),('groupSubscriber');
+
 --
 -- Dumping data for table `users`
 --
@@ -972,9 +955,6 @@ INSERT INTO `users` (id, first_name, middle_name, last_name, email, birthday, se
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Dumping data for table `friends`
---
 insert into friends (user_sender, user_receiver) values (4,5);
 
 insert into groups (name, description) values ('Наш сад', 'Группа для любителей садоводства'),
@@ -1005,7 +985,7 @@ insert into news (title, text, picture, published) values
 
 insert into users_news (news_id, user_id) values (3,5), (4,5), (5,5);
 
-insert into users_avatars (user_id, file_name) values (5, 'red.JPG');
+insert into users_avatars (user_id, file_name) values (5, 'red.jpg');
 insert into users_avatars (user_id, file_name) values (4, 'zveropolis.jpeg');
 
 insert into users_cities (user_id, city_id) values (5,2), (4,1), (6,3), (1,1), (2,3), (3,2);
@@ -1019,9 +999,13 @@ insert into comments (user_id, text, published) values
 (6, 'Да уж! Мечтать не вредно...', '2017-01-12 12:33:16'),
 (4, 'А мне он не нравится! Слишком слащавый', '2017-01-13 12:33:16');
 
+insert into comments (user_id, text, status, published) values
+(4, 'Ненавижу!!!!!', 'block', '2017-01-19 12:33:16'),
+(6, 'Тебе что, дура, больше заняться нечем?', 'delete', '2017-01-19 12:33:16');
+
 insert into users_avatars_comments (user_avatar_id, comment_id) values (1, 1), (1, 2);
 
-insert into news_comments (news_id, comment_id) values (3, 3), (4, 4);
+insert into news_comments (news_id, comment_id) values (3, 3), (4, 4), (3, 8), (3, 9);
 
 insert into albums_photos_comments (comment_id, albums_photos_id) values (5, 1), (6, 4), (7, 4);
 
@@ -1029,5 +1013,75 @@ INSERT INTO `friends` (user_sender, user_receiver, status) VALUES (1,2,'applied'
 
 insert into passwords (user_id, password) values (1, '111111'), (2, '111111'), (3, '111111'), (4, '111111'), (5, '111111'), (6, '111111');
 
+INSERT INTO users_roles (user_id, role_id) values (5, 1);
+
+
+CREATE TABLE `ts`.`dialog_rooms` (
+  `id` INT(11) NOT NULL,
+  `name` VARCHAR(90) NOT NULL,
+  `creator_id` INT(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+ALTER TABLE `ts`.`dialog_rooms`
+CHANGE COLUMN `id` `id` INT(11) NOT NULL AUTO_INCREMENT ;
+
+TRUNCATE `ts`.`messages`;
+
+ALTER TABLE `ts`.`messages`
+DROP FOREIGN KEY `fk_messages_users2`;
+ALTER TABLE `ts`.`messages`
+CHANGE COLUMN `receiver_id` `dialog_room_id` INT(11) NOT NULL ;
+ALTER TABLE `ts`.`messages`
+ADD CONSTRAINT `fk_messages_dialog_rooms`
+  FOREIGN KEY (`dialog_room_id`)
+  REFERENCES `ts`.`dialog_rooms` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+ALTER TABLE `ts`.`messages`
+CHANGE COLUMN `id` `id` INT(11) NOT NULL AUTO_INCREMENT ;
+
+CREATE TABLE `ts`.`recipients` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `user_id` INT(11) NOT NULL,
+  `dialog_room_id` INT(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+ALTER TABLE `ts`.`recipients`
+ADD INDEX `fk_recipients_users_idx` (`user_id` ASC);
+ALTER TABLE `ts`.`recipients`
+ADD CONSTRAINT `fk_recipients_users`
+  FOREIGN KEY (`user_id`)
+  REFERENCES `ts`.`users` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+ALTER TABLE `ts`.`recipients`
+ADD INDEX `fk_recipients_dialog_rooms_idx` (`dialog_room_id` ASC);
+ALTER TABLE `ts`.`recipients`
+ADD CONSTRAINT `fk_recipients_dialog_rooms`
+  FOREIGN KEY (`dialog_room_id`)
+  REFERENCES `ts`.`dialog_rooms` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+ALTER TABLE `ts`.`dialog_rooms`
+ADD INDEX `fk_dialog_rooms_users_idx` (`creator_id` ASC);
+ALTER TABLE `ts`.`dialog_rooms`
+ADD CONSTRAINT `fk_dialog_rooms_users`
+  FOREIGN KEY (`creator_id`)
+  REFERENCES `ts`.`users` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+
+ALTER TABLE `ts`.`recipients`
+ADD COLUMN `unread_counter` INT(11) NULL DEFAULT 0 AFTER `dialog_room_id`;
 
 
