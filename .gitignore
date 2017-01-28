@@ -1,0 +1,5 @@
+.idea/
+/vendor/
+tests/speedtests/
+db_params.php
+
