@@ -1,0 +1,16 @@
+label {
+    float: left;
+    display: inline-block;
+    width: 17em;
+    text-align: right;
+    margin-right: 1em;
+}
+input.submit {
+    margin-left: 18em;
+}
+.input {
+    visibility: hidden;
+}
+input.profile {
+    width: 6.8em;
+}

@@ -14,11 +14,11 @@ class News extends ActiveRecord
 {
     protected static $tableName = 'news';
     protected static $tableFields = [
-                                     'id' => 'id',
-                                     'title' => 'title',
-                                     'text' => 'text',
-                                     'picture' => 'picture',
-                                     'status' => 'status',
-                                     'created_at' => 'created_at',
+                                        'id' => 'id',
+                                        'title' => 'title',
+                                        'text' => 'text',
+                                        'picture' => 'picture',
+                                        'status' => 'status',
+                                        'created_at' => 'created_at',
                                     ];
 }

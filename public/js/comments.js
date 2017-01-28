@@ -67,9 +67,10 @@
                     data: {'id': JSON.stringify($(this).attr("data-id"))},
                     success: function (result) {
                         var data = JSON.parse(result);
-                        console.log(data);
                         var comments = data.comments;
                         var user = data.user;
+                        console.log(comments);
+
 
                         comments.forEach(function (item, i, comments) {
                             $('article div[comment-id="' + idNews+'"]').append(getCommentTemplate(item, user));
@@ -99,13 +100,13 @@
 
         function getCommentTemplate(data, user) {
             return    '<div class="row">'
-                    + '<div class="user-avatar"><img src="avatars/'+user.avatarFileName+'"></div>'
-                    + '<div class="comment-info">'
-                    + '<div class="row">'
-                    + '<div class="username">'+comments.firstName+' '+comments.lastName+'</div>'
-                    + '<div class="comment-time">'+data.created_at+'</div>'
-                    + '<div class="comment-delete"  data-id="'+data.id+'"> <i class="fa fa-times" aria-hidden="true"></i></div>'
-                    + '<div class="text-comment">'+data.text+'</div></div></div>';
+                + '<div class="user-avatar"><img src="avatars/'+data.avatarFileName+'"></div>'
+                + '<div class="comment-info">'
+                + '<div class="row">'
+                + '<div class="username">'+data.firstName+' '+data.lastName+'</div>'
+                + '<div class="comment-time">'+data.created_at+'</div>'
+                + '<div class="comment-delete"  data-id="'+data.id+'"> <i class="fa fa-times" aria-hidden="true"></i></div>'
+                + '<div class="text-comment">'+data.text+'</div></div></div>';
         }
     });
 })(jQuery);

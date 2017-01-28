@@ -35,7 +35,7 @@ class CommentsController extends PageController
         Comment::joinDB('users.id', 'users_avatars', 'user_id', ['file_name' => 'fileName']);
 
         $comments = Comment::getByCondition(['status' => 'active', 'newsId' => $relationCommentNews],
-                                             "ORDER BY created_at DESC");
+            "ORDER BY created_at DESC");
         $result['comments'] = $comments;
         echo json_encode($result);
         exit;
