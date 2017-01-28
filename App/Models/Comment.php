@@ -14,12 +14,10 @@ class Comment extends ActiveRecord
 {
     protected static $tableName = 'comments';
     protected static $tableFields = [
-                                     'id' => 'id',
-                                     'user_id' => 'userId',
-                                     'text' => 'text',
-                                     'news_id' => 'newsId',
-                                     'created_at' => 'created_at',
-                                     'deleted' => 'deleted',
-
-    ];
+                                        'id' => 'id',
+                                        'user_id' => 'userId',
+                                        'text' => 'text',
+                                        'created_at' => 'created_at',
+                                        'status' => 'status',
+                                    ];
 }
